@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>aetheon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400&display=swap" rel="stylesheet">
 
 <style>
     body {
@@ -57,10 +60,30 @@
         100% { transform: translate(-50%, -50%) translate(0, 0); }
     }
 
+    marquee {
+        position: fixed;
+        width: 100%;
+        font-family: 'Cormorant', serif;
+        font-size: 30px;
+        color: rgba(255, 255, 255, 1);
+        z-index: 100;
+    }
+
+    .mar-my-quee-top {
+        top: 0;
+    }
+
+    .mar-my-quee-bottom {
+        bottom: 0;
+    }
+
 </style>
 </head>
 
 <body>
+
+<marquee class="mar-my-quee-top" direction="right" scrollamount="6"></marquee>
+<marquee class="mar-my-quee-bottom" direction="left" scrollamount="6"></marquee>
 
 <div class="sprite-container">
     <img src="assets/mmain-layer0.png" class="layer0">
@@ -69,6 +92,14 @@
 </div>
 
 <script>
+fetch('assets/marquee.txt')
+    .then(response => response.text())
+    .then(text => {
+        // web development is my passion
+        document.querySelector('.mar-my-quee-top').textContent = text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text;
+        document.querySelector('.mar-my-quee-bottom').textContent = text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text;
+    });
+
 window.addEventListener("click", () => {
     const audio = new Audio("assets/smlwiki.wav");
     audio.loop = true;
