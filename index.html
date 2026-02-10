@@ -69,10 +69,6 @@
         z-index: 100;
     }
 
-    .mar-my-quee-top {
-        top: 0;
-    }
-
     .mar-my-quee-bottom {
         bottom: 0;
     }
@@ -82,7 +78,6 @@
 
 <body>
 
-<marquee class="mar-my-quee-top" direction="right" scrollamount="6"></marquee>
 <marquee class="mar-my-quee-bottom" direction="left" scrollamount="6"></marquee>
 
 <div class="sprite-container">
@@ -96,7 +91,6 @@ fetch('assets/marquee.txt')
     .then(response => response.text())
     .then(text => {
         // web development is my passion
-        document.querySelector('.mar-my-quee-top').textContent = text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text;
         document.querySelector('.mar-my-quee-bottom').textContent = text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text;
     });
 
