@@ -91,7 +91,7 @@ fetch('assets/marquee.txt')
     .then(response => response.text())
     .then(text => {
         // web development is my passion
-        document.querySelector('.mar-my-quee-bottom').textContent = text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text + " ||||| " + text;
+        document.querySelector('.mar-my-quee-bottom').textContent = text;
     });
 
 window.addEventListener("click", () => {
