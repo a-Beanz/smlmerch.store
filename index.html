@@ -1,105 +1,106 @@
+<!-- namecheap is trying to take back the domains i have fully legally paid for with my own money, accusing me of fraud due to using a prepaid visa card. if this is not resolved, the project is prematurely dead. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>aetheon</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMLMERCH.STORE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        video {
+            max-width: 90%;
+            max-height: 90vh;
+        }
 
-<style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to bottom, #8b0000 0%, #2a0000 70%, #000000 100%);
-        overflow: hidden;
-    }
+        /* marquee shit */
+        marquee {
+            position: fixed;
+            width: 100%;
+            font-family: 'Cormorant', serif;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 1);
+            z-index: 100;
+        }
 
-    .sprite-container {
-        position: relative;
-        width: 512px;
-        height: 512px;
-        transform: scale(1.6);
-    }
+        .mar-my-quee-bottom {
+            bottom: 0;
+        }
 
-    .sprite-container img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 100%;
-        max-height: 100%;
-        pointer-events: none;
-    }
+        /* autoplay w/ audio */
+        .autoplay-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+        }
 
-    .layer0 { z-index: 0; }
-    .layer1 { 
-        z-index: 1;
-        animation: shake 0.5s infinite;
-    }
-    .layer2 { 
-        z-index: 2;
-        animation: shake 0.1s infinite;
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-    /* KILL ME THERE HAS TO BE A BETTER WAY TO FUCKING DO THIS :sob: */
-    @keyframes shake {
-        0%   { transform: translate(-50%, -50%) translate(0, 0); }
-        10%  { transform: translate(-50%, -50%) translate(-1px, 1px); }
-        20%  { transform: translate(-50%, -50%) translate(1px, -1px); }
-        30%  { transform: translate(-50%, -50%) translate(-1px, -1px); }
-        40%  { transform: translate(-50%, -50%) translate(1px, 1px); }
-        50%  { transform: translate(-50%, -50%) translate(-0.5px, 1px); }
-        60%  { transform: translate(-50%, -50%) translate(1px, 0); }
-        70%  { transform: translate(-50%, -50%) translate(-1px, 0); }
-        80%  { transform: translate(-50%, -50%) translate(0, 1px); }
-        90%  { transform: translate(-50%, -50%) translate(0, -1px); }
-        100% { transform: translate(-50%, -50%) translate(0, 0); }
-    }
-
-    marquee {
-        position: fixed;
-        width: 100%;
-        font-family: 'Cormorant', serif;
-        font-size: 30px;
-        color: rgba(255, 255, 255, 1);
-        z-index: 100;
-    }
-
-    .mar-my-quee-bottom {
-        bottom: 0;
-    }
-
-</style>
+        .autoplay-disclaimer {
+            font-family: 'Cormorant', serif;
+            font-size: 32px;
+            color: white;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeIn 3s ease-in forwards;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="autoplay-overlay" id="autoplay-overlay">
+        <div class="autoplay-disclaimer">Click or tap anywhere on the screen to continue.</div>
+    </div>
 
-<marquee class="mar-my-quee-bottom" direction="left" scrollamount="6"></marquee>
+    <video id="poopblud" autoplay playsinline>
+        <source src="assets/execretion.mp4" type="video/mp4">
+    </video>
 
-<div class="sprite-container">
-    <img src="assets/mmain-layer0.png" class="layer0">
-    <img src="assets/mmain-layer1.png" class="layer1">
-    <img src="assets/mmain-layer2.png" class="layer2">
-</div>
+    <marquee class="mar-my-quee-bottom" direction="left" scrollamount="12">namecheap has killed marvin. shame on you namecheap,,,</marquee>
 
-<script>
-fetch('assets/marquee.txt')
-    .then(response => response.text())
-    .then(text => {
-        // web development is my passion
-        document.querySelector('.mar-my-quee-bottom').textContent = text;
-    });
+    <script>
+        const video = document.getElementById('poopblud');
+        const marquee = document.querySelector('.mar-my-quee-bottom');
+        const overlay = document.getElementById('autoplay-overlay');
+        
+        overlay.addEventListener('click', () => {
+            overlay.remove();
+            video.play();
+        });
 
-window.addEventListener("click", () => {
-    const audio = new Audio("assets/smlwiki.wav");
-    audio.loop = true;
-    audio.play();
-}, { once: true });
-</script>
-
+        overlay.addEventListener('touchstart', () => {
+            overlay.remove();
+            video.play();
+        });
+        
+        video.onended = () => {
+            video.remove();
+            marquee.remove();
+            alert('ok that\'s it you can go home');
+        };
+    </script>
 </body>
 </html>
