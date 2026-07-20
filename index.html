@@ -1,4 +1,4 @@
-<!-- this isn't an arg btw,, the domain was like two dollars and it was funny -->
+<!-- this isn't an arg btw,, the domain was like two dollars and it was funny buttt it might make for an interesting music album -->
 <!-- also if anyone tweets about it, it will probably get a decently high ranking for "sml merch store" on google too sooo it's also just a fun seo trick -->
 <!-- go visit https://yumekana.de or https://youtube.com/@abeanzreal because he probably wrote like 80% of the code,, -->
 <!-- i just dealt with cloudflare and namecheap customer support because they tried to take my two dollars and revoke my domain and composed the midi you hear in the background,, -->
@@ -26,6 +26,7 @@
         align-items: center;
         background: linear-gradient(to bottom, #8b0000 0%, #2a0000 70%, #000000 100%);
         overflow: hidden;
+        cursor: url('assets/cursor.png'), auto;
     }
 
     .sprite-container {
@@ -69,6 +70,7 @@
         90%  { transform: translate(-50%, -50%) translate(0, -1px); }
         100% { transform: translate(-50%, -50%) translate(0, 0); }
     }
+    /* ^ chatgpt please generate me a random jitter effect make no mistakes */
 
     marquee {
         position: fixed;
@@ -83,10 +85,87 @@
         bottom: 0;
     }
 
+    /* autoplay disclaimer  */
+    .autoplay-interaction-requirement {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        transition: opacity 0.5s ease-out;
+    }
+
+    .autoplay-interaction-requirement.fade-out {
+        opacity: 0;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .autoplay-disclaimer {
+        font-family: 'Cormorant', serif;
+        font-size: 32px;
+        color: white;
+        text-align: center;
+        pointer-events: none;
+        opacity: 0;
+        animation: fadeIn 3s ease-in forwards;
+    }
+
+    /* logo */
+    .smlmerch-logo {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        width: 250px;
+        z-index: 200;
+        transform-origin: 50% 50%;
+        animation: funny-bootleg-logo-animation 3s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    /* the little kanade gif at the bottom right with the really messed up positioning tricks hiiiii */
+    .kanadeyayayayaa {
+        position: fixed;
+        bottom: -50px;
+        right: 15px;
+        width: 150px;
+        z-index: 500;
+        transform-origin: 50% 50%;
+    }
+
+    @keyframes funny-bootleg-logo-animation {
+        0%   { transform: rotate(-4deg); }
+        50%  { transform: rotate(8deg); }
+        100% { transform: rotate(-4deg); }
+    }
+
 </style>
 </head>
 
 <body>
+
+<div class="autoplay-interaction-requirement" id="autoplay-interaction-requirement">
+    <div class="autoplay-disclaimer">Click or tap anywhere on the screen to continue.</div>
+</div>
+
+<img src="assets/smlmerchstorelogo1_1.webp" class="smlmerch-logo" alt="Logo">
+
+<!-- shortcut that i may remove later -->
+<a href="https://yumekana.de/" class="kanadeyayayayaa">
+    <img src="assets/kanade.gif" alt="Shortcut to https://yumekana.de">
+</a>
 
 <marquee class="mar-my-quee-bottom" direction="left" scrollamount="6"></marquee>
 
@@ -104,11 +183,24 @@ fetch('assets/marquee.txt')
         document.querySelector('.mar-my-quee-bottom').textContent = text;
     });
 
+const overlay = document.getElementById('autoplay-interaction-requirement');
+const disclaimer = document.querySelector('.autoplay-disclaimer');
+
+function dismissAutoplayOverlay() {
+    disclaimer.remove();
+    overlay.classList.add('fade-out');
+    overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
+}
+
+overlay.addEventListener('click', dismissAutoplayOverlay, { once: true });
+overlay.addEventListener('touchstart', dismissAutoplayOverlay, { once: true });
+
 window.addEventListener("click", () => {
     const audio = new Audio("assets/hellscape.mp3");
     audio.loop = true;
     audio.play();
 }, { once: true });
+
 </script>
 
 </body>
